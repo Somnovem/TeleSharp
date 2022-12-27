@@ -1,0 +1,153 @@
+﻿<Window x:Class="TeleSharp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeleSharp"
+        mc:Ignorable="d"
+        Title="TeleSharp" Height="650" Width="600" WindowStartupLocation="CenterScreen" MinWidth="470" MinHeight="510" Icon="Resources/Icon.ico">
+    <Window.Resources>
+        <ControlTemplate TargetType="Button" x:Key="btnMenuStrip">
+            <ContentControl Background="{TemplateBinding Background}" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0" Margin="4" Content="{TemplateBinding Content}"/>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation From="#23262B" To="#e0e0eb" Duration="0:0:1" AutoReverse="True" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="TextBox" x:Key="txtSearch">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#b3b3cc"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderThickness" Value="3"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <ControlTemplate TargetType="Button" x:Key="chatInterfaceButton">
+            <ContentControl Width="30" Background="Transparent" BorderThickness="0" Content="{TemplateBinding Content}"/>
+        </ControlTemplate>
+        <Style TargetType="TextBlock" x:Key="chatChars">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Height" Value="15"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Background="#23262B">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45"/>
+            <ColumnDefinition Width="27*" MinWidth="160" x:Name="listColumn"/>
+            <ColumnDefinition Width="60*" MinWidth="350"/>
+        </Grid.ColumnDefinitions>
+        <!--BasicUI-->
+        <Button Grid.Column="0" Template="{StaticResource btnMenuStrip}">
+            <Image Source="Resources/menu.png"/>
+        </Button>
+        
+        <StackPanel Grid.Column="1" Background="#34414c">
+            <TextBox x:Name="txtNicknameSearch" Style="{StaticResource txtSearch}" Text="Search..." GotFocus="txtNicknameSearch_GotFocus" LostFocus="txtNicknameSearch_LostFocus"/>
+            <ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Image Width="30" Height="30" Grid.Column="0" Grid.RowSpan="2">
+                                <Image.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                        <Setter Property="BorderThickness" Value="3"/>
+                                    </Style>
+                                </Image.Resources>
+                            </Image>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+        <GridSplitter Grid.Column="1" Width="5" Background="Transparent"/>
+        
+        <Rectangle Grid.Column="2">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Resources/wallpaper.png" Stretch="Fill" x:Name="imgBrush"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        
+        
+        <!--chatter-->
+        <Grid Grid.Column="2" x:Name="chatInterface">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Fill="#34414c"/>
+            <Rectangle Grid.Row="2" Fill="#34414c"/>
+            
+            <!--topUI-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Template="{StaticResource chatInterfaceButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                        <Image Source="Resources/search.png"/>
+                    </Button>
+                    <Button Template="{StaticResource chatInterfaceButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                        <Image Source="Resources/sidebar.png"/>
+                    </Button>
+                    <Button Template="{StaticResource chatInterfaceButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                        <Image Source="Resources/menuExtra.png"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource chatChars}" x:Name="chatName" Foreground="White" Text="TestName"/>
+                    <TextBlock Style="{StaticResource chatChars}" x:Name="chatInfo" Foreground="LightGray" Text="150 info"/>
+                </StackPanel>
+            </Grid>
+
+            <!--BottomUI-->
+            <Grid Grid.Row="2" x:Name="chatSending">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Button Template="{StaticResource chatInterfaceButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="BtnPinFile_Click" Margin="2">
+                    <Image Source="Resources/paperclip.png"/>
+                </Button>
+                <TextBox Foreground="LightGray" Background="Transparent" VerticalScrollBarVisibility="Disabled"
+                             HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Text="Write a message..." 
+                             VerticalContentAlignment="Center" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" CaretBrush="White"/>
+                <Button Template="{StaticResource chatInterfaceButton}" Grid.Column="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Margin="2">
+                    <Image Source="Resources/smile.png"/>
+                </Button>
+                <Button Template="{StaticResource chatInterfaceButton}" Grid.Column="3" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Margin="2">
+                    <Image Source="Resources/mic.png"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

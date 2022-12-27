@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Misc\menu.png" />
+    <None Remove="Resources\Icon.ico" />
+    <None Remove="Resources\menuExtra.png" />
+    <None Remove="Resources\menuExtraAlter.png" />
+    <None Remove="Resources\mic.png" />
+    <None Remove="Resources\micAlter.png" />
+    <None Remove="Resources\papepclip.png" />
+    <None Remove="Resources\paperclip.png" />
+    <None Remove="Resources\paperclipAlter.png" />
+    <None Remove="Resources\search.png" />
+    <None Remove="Resources\searchAlter.png" />
+    <None Remove="Resources\sidebar.png" />
+    <None Remove="Resources\sidebarAlter.png" />
+    <None Remove="Resources\smile.png" />
+    <None Remove="Resources\smileAlter.png" />
+    <None Remove="Resources\wallpaper.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icon.ico" />
+    <Resource Include="Resources\menu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\menuExtra.png" />
+    <Resource Include="Resources\menuExtraAlter.png" />
+    <Resource Include="Resources\mic.png" />
+    <Resource Include="Resources\micAlter.png" />
+    <Resource Include="Resources\paperclipAlter.png" />
+    <Resource Include="Resources\search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\searchAlter.png" />
+    <Resource Include="Resources\sidebar.png" />
+    <Resource Include="Resources\sidebarAlter.png" />
+    <Content Include="Resources\wallpaper.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\paperclip.png" />
+    <Resource Include="Resources\smile.png" />
+    <Resource Include="Resources\smileAlter.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Misc\" />
+  </ItemGroup>
+
+</Project>
