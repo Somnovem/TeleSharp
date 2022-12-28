@@ -24,9 +24,27 @@ namespace TeleSharp
     /// </summary>
     public partial class MainWindow : Window
     {
+        ChatRepository chats;
         public MainWindow()
         {
+            chats = new ChatRepository();
             InitializeComponent();
+            Chat testChat = new Chat();
+            testChat.Name = "test";
+            testChat.LastMessage = "qt";
+            testChat.timeLast = new TimeOnly(15, 16);
+            testChat.Source = new BitmapImage(new Uri("../../../Resources/defpp.png", UriKind.Relative));
+            testChat.Context = "Online";
+            testChat.Info = "Scratch";
+            testChat.Username = "Linuh";
+            chats.GetChats().Add(testChat);
+            ObjectDataProvider provider = new ObjectDataProvider();
+            provider.ObjectInstance = chats;
+            provider.MethodName = "GetChats";
+            Binding binding = new Binding() { Source = provider };
+            chatList.SetBinding(ListBox.ItemsSourceProperty, binding);
+            chatTop.SetBinding(StackPanel.DataContextProperty, binding);
+            chatSideInfo.SetBinding(StackPanel.DataContextProperty, binding);
         }
         private void txtNicknameSearch_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -98,6 +116,29 @@ namespace TeleSharp
                 {
                     MessageBox.Show("File is too big!", "Caution", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+            }
+        }
+
+        private void chatList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (chatInterface.Visibility != Visibility.Visible)
+            {
+                chatInterface.Visibility = Visibility.Visible;
+                chatWaiting.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void SidebarActivation_Click(object sender, RoutedEventArgs e)
+        {
+            if (chatSideInfo.Visibility == Visibility.Collapsed)
+            {
+                this.Width += 160;
+                chatSideInfo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.Width -= 160;
+                chatSideInfo.Visibility = Visibility.Collapsed;
             }
         }
     }

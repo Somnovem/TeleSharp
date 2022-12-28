@@ -9,6 +9,7 @@ using System.Windows.Media;
 
 namespace TeleSharp
 {
+    public enum Status { Offline,Away,Online }
     public class ChatRepository
     {
         BindingList<Chat> chats = new BindingList<Chat>();
@@ -20,5 +21,8 @@ namespace TeleSharp
         public string Name { get; set; }
         public string LastMessage { get; set; }
         public TimeOnly timeLast { get; set; }
+        public string Context { get; set; }
+        public string Info { get; set; }
+        public string Username { get; set; }
     }
 }

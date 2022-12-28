@@ -9,14 +9,23 @@
 
   <ItemGroup>
     <None Remove="Misc\menu.png" />
+    <None Remove="Resources\camera.png" />
+    <None Remove="Resources\defpp.png" />
+    <None Remove="Resources\file.png" />
+    <None Remove="Resources\gif.png" />
+    <None Remove="Resources\headph.png" />
     <None Remove="Resources\Icon.ico" />
+    <None Remove="Resources\info.png" />
+    <None Remove="Resources\link.png" />
     <None Remove="Resources\menuExtra.png" />
     <None Remove="Resources\menuExtraAlter.png" />
     <None Remove="Resources\mic.png" />
     <None Remove="Resources\micAlter.png" />
+    <None Remove="Resources\notif.png" />
     <None Remove="Resources\papepclip.png" />
     <None Remove="Resources\paperclip.png" />
     <None Remove="Resources\paperclipAlter.png" />
+    <None Remove="Resources\photos.png" />
     <None Remove="Resources\search.png" />
     <None Remove="Resources\searchAlter.png" />
     <None Remove="Resources\sidebar.png" />
@@ -27,7 +36,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\camera.png" />
+    <Resource Include="Resources\defpp.png" />
+    <Resource Include="Resources\file.png" />
+    <Resource Include="Resources\gif.png" />
+    <Resource Include="Resources\headph.png" />
     <Resource Include="Resources\Icon.ico" />
+    <Resource Include="Resources\info.png" />
+    <Resource Include="Resources\link.png" />
     <Resource Include="Resources\menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -35,7 +51,9 @@
     <Resource Include="Resources\menuExtraAlter.png" />
     <Resource Include="Resources\mic.png" />
     <Resource Include="Resources\micAlter.png" />
+    <Resource Include="Resources\notif.png" />
     <Resource Include="Resources\paperclipAlter.png" />
+    <Resource Include="Resources\photos.png" />
     <Resource Include="Resources\search.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
