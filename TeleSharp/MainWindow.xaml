@@ -42,6 +42,44 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Height" Value="15"/>
         </Style>
+        <ControlTemplate TargetType="Button" x:Key="chatSideExtraButton">
+            <ContentControl Content="{TemplateBinding Content}"/>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7aaac2"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="TextBlock" x:Key="chatSideExrtaButtonTxt">
+            <Setter Property="Margin" Value="5,3"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Grid.Column" Value="1"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="txtMessageDefault">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="incomingMessage" BasedOn="{StaticResource txtMessageDefault}">
+            <Setter Property="Background" Value="#34414c"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="outgoingMessage" BasedOn="{StaticResource txtMessageDefault}">
+            <Setter Property="Background" Value="#61A3C3"/>
+        </Style>
+        <Style TargetType="Border" x:Key="borderMessageDefault">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Margin" Value="10,20"/>
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+        <Style TargetType="Border" x:Key="incomingBorder" BasedOn="{StaticResource borderMessageDefault}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="Border" x:Key="outgoingBorder" BasedOn="{StaticResource borderMessageDefault}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
     </Window.Resources>
 
     <Grid Background="#23262B">
@@ -105,6 +143,7 @@
 
         <!--chatter-->
         <Grid Grid.Column="2" x:Name="chatInterface" Visibility="Collapsed">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
@@ -113,7 +152,20 @@
             <Rectangle Grid.Row="0" Fill="#34414c"/>
             <Rectangle Grid.Row="2" Fill="#34414c"/>
 
-
+            <!--Chat-->
+            <StackPanel x:Name="chat" Grid.Row="1">
+                <TextBox Text="Hello world!" Style="{StaticResource incomingMessage}">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}" BasedOn="{StaticResource incomingBorder}"/>
+                    </TextBox.Resources>
+                </TextBox>
+                <TextBox Text="Hello Vanaheim!" Style="{StaticResource outgoingMessage}">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}" BasedOn="{StaticResource outgoingBorder}"/>
+                    </TextBox.Resources>
+                </TextBox>
+            </StackPanel>
+            
             <!--topUI-->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -159,17 +211,23 @@
                     <Image Source="Resources/mic.png"/>
                 </Button>
             </Grid>
+            
         </Grid>
+        
+        
+        <!---SideUI-->
         <Grid Grid.Column="3" x:Name="chatSideInfo" Visibility="Collapsed" Width="160">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="19*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="39*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="19*"/>
+                <RowDefinition Height="25*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="15*"/>
             </Grid.RowDefinitions>
+            
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -206,8 +264,8 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Info}" Foreground="White" Margin="5,10,0,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Info" Foreground="LightGray" Margin="5,0,0,16"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Info}" Foreground="White" Margin="5,16,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Info" Foreground="LightGray" Margin="5,0,0,20"/>
                 </Grid>
 
                 <Grid Grid.Row="1" Grid.ColumnSpan="2">
@@ -222,83 +280,97 @@
                 <Image Grid.Row="2" Grid.Column="0" Source="Resources/notif.png"/>
                 <CheckBox Content="Notifications" Grid.Row="2" Grid.Column="1" IsChecked="True" VerticalAlignment="Center" Foreground="White" Margin="5,0"/>
             </Grid>
-            
+
             <Rectangle Fill="Gray"  Grid.Row="3"/>
-            <StackPanel Orientation="Vertical" Grid.Row="4" Background="Transparent">
-                <Button Height="20">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/photos.png"/>
-                            <TextBlock Grid.Column="1" Text="Photos" Foreground="White" Margin="5,3" VerticalAlignment="Center" Background="Transparent"/>
-                        </Grid>
-                    </Button.Content>
+
+            <StackPanel Orientation="Vertical" Grid.Row="4">
+                <Button Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/photos.png"/>
+                        <TextBlock Text="Photos" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
                 </Button>
-                <Button Height="20">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/camera.png"/>
-                            <TextBlock Grid.Column="1" Text="Videos" Foreground="White" Margin="5,3" VerticalAlignment="Center" Background="Transparent"/>
-                        </Grid>
-                    </Button.Content>
+                <Button Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/file.png"/>
+                        <TextBlock Text="Files" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
                 </Button>
-                <Button Height="20">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/file.png"/>
-                            <TextBlock Grid.Column="1" Text="Files" Foreground="White" Margin="5,3" VerticalAlignment="Center" Background="Transparent"/>
-                        </Grid>
-                    </Button.Content>
+                <Button Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/headph.png"/>
+                        <TextBlock  Text="Audiofiles" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
                 </Button>
-                <Button Height="20">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/headph.png"/>
-                            <TextBlock Grid.Column="1" Text="Audiofiles" Foreground="White" Margin="5,3" VerticalAlignment="Center" Background="Transparent"/>
-                        </Grid>
-                    </Button.Content>
+                <Button  Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/link.png"/>
+                        <TextBlock Text="Links" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
                 </Button>
-                <Button Height="20">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/link.png"/>
-                            <TextBlock Grid.Column="1" Text="Links" Foreground="White" Margin="5,3" VerticalAlignment="Center" Background="Transparent"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button Height="20">
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/micAlter.png"/>
-                            <TextBlock Grid.Column="1" Text="Audiomessages" Foreground="White" Margin="5,3" VerticalAlignment="Center" Background="Transparent"/>
-                        </Grid>
-                    </Button.Content>
+                <Button  Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/micAlter.png"/>
+                        <TextBlock  Text="Audiomessages" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
                 </Button>
             </StackPanel>
+            
             <Rectangle Fill="Gray"  Grid.Row="5"/>
+            
+            <StackPanel Orientation="Vertical" Grid.Row="6">
+                <Button  Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/share.png"/>
+                        <TextBlock  Text="Share chat" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
+                </Button>
+                <Button  Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/trash.png"/>
+                        <TextBlock Text="Delete chat" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
+                </Button>
+                <Button  Template="{StaticResource chatSideExtraButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="Resources/ban.png"/>
+                        <TextBlock  Text="Ban" Margin="13,3,0,3" Style="{StaticResource chatSideExrtaButtonTxt}"/>
+                    </Grid>
+                </Button>
+            </StackPanel>
+            
         </Grid>
     </Grid>
 </Window>

@@ -141,5 +141,17 @@ namespace TeleSharp
                 chatSideInfo.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void ChatSideButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button obj = sender as Button;
+            obj.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#7aaac2");
+        }
+
+        private void ChatSideButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button obj = sender as Button;
+            obj.Background = null;
+        }
     }
 }
