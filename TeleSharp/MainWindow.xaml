@@ -44,11 +44,6 @@
         </Style>
         <ControlTemplate TargetType="Button" x:Key="chatSideExtraButton">
             <ContentControl Content="{TemplateBinding Content}"/>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7aaac2"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
         </ControlTemplate>
         <Style TargetType="TextBlock" x:Key="chatSideExrtaButtonTxt">
             <Setter Property="Margin" Value="5,3"/>
@@ -79,6 +74,13 @@
         </Style>
         <Style TargetType="Border" x:Key="outgoingBorder" BasedOn="{StaticResource borderMessageDefault}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="chatSideButtonReact">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7aaac2"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
@@ -285,7 +287,7 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="4">
                 <Button Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -295,7 +297,7 @@
                     </Grid>
                 </Button>
                 <Button Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -305,7 +307,7 @@
                     </Grid>
                 </Button>
                 <Button Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -315,7 +317,7 @@
                     </Grid>
                 </Button>
                 <Button  Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -325,7 +327,7 @@
                     </Grid>
                 </Button>
                 <Button  Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -340,7 +342,7 @@
             
             <StackPanel Orientation="Vertical" Grid.Row="6">
                 <Button  Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -350,7 +352,7 @@
                     </Grid>
                 </Button>
                 <Button  Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -360,7 +362,7 @@
                     </Grid>
                 </Button>
                 <Button  Template="{StaticResource chatSideExtraButton}">
-                    <Grid>
+                    <Grid Style="{StaticResource chatSideButtonReact}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30"/>
                             <ColumnDefinition/>
@@ -370,7 +372,7 @@
                     </Grid>
                 </Button>
             </StackPanel>
-            
+            s
         </Grid>
     </Grid>
 </Window>
