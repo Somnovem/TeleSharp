@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,10 +23,12 @@ namespace TeleSharp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public  partial class MainWindow : Window
     {
         ChatRepository chats;
-        public MainWindow()
+
+
+    public MainWindow()
         {
             chats = new ChatRepository();
             InitializeComponent();
@@ -152,6 +155,32 @@ namespace TeleSharp
         {
             Button obj = sender as Button;
             obj.Background = null;
+        }
+
+        private void txtMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TextBox newMessage = new TextBox();
+                newMessage.Text = txtMessage.Text;
+                if (newMessage.Text.Length > 45)
+                {
+                    int n = 45;
+                    while (n < newMessage.Text.Length)
+                    {
+                        newMessage.Text = newMessage.Text.Insert(n, "\n");
+                        n += 45;
+                    }
+                }
+                if (newMessage.Text.Length == 0)
+                {
+                    return;
+                }
+                newMessage.Style = outgoingTemplate.Style;
+                newMessage.Resources = outgoingTemplate.Resources;
+                chat.Children.Add(newMessage);
+                txtMessage.Text = "";
+            }
         }
     }
 }

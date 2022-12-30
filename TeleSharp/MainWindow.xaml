@@ -71,7 +71,7 @@
         <Style TargetType="Border" x:Key="borderMessageDefault">
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Height" Value="Auto"/>
-            <Setter Property="Margin" Value="10,20"/>
+            <Setter Property="Margin" Value="10,15"/>
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
         <Style TargetType="Border" x:Key="incomingBorder" BasedOn="{StaticResource borderMessageDefault}">
@@ -153,19 +153,20 @@
             <Rectangle Grid.Row="2" Fill="#34414c"/>
 
             <!--Chat-->
-            <StackPanel x:Name="chat" Grid.Row="1">
-                <TextBox Text="Hello world!" Style="{StaticResource incomingMessage}">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}" BasedOn="{StaticResource incomingBorder}"/>
-                    </TextBox.Resources>
-                </TextBox>
-                <TextBox Text="Hello Vanaheim!" Style="{StaticResource outgoingMessage}">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}" BasedOn="{StaticResource outgoingBorder}"/>
-                    </TextBox.Resources>
-                </TextBox>
-            </StackPanel>
-            
+            <ScrollViewer VerticalScrollBarVisibility="Auto"  Grid.Row="1">
+                <StackPanel x:Name="chat">
+                    <TextBox Text="Hello world!" Style="{StaticResource incomingMessage}">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource incomingBorder}"/>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <TextBox Text="Hello Vanaheim!" Style="{StaticResource outgoingMessage}" x:Name="outgoingTemplate">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}" BasedOn="{StaticResource outgoingBorder}"/>
+                        </TextBox.Resources>
+                    </TextBox>
+                </StackPanel>
+            </ScrollViewer>
             <!--topUI-->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -200,10 +201,9 @@
                 <Button Template="{StaticResource chatInterfaceButton}" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="BtnPinFile_Click" Margin="2">
                     <Image Source="Resources/paperclip.png"/>
                 </Button>
-                <TextBox Foreground="LightGray" Background="Transparent" VerticalScrollBarVisibility="Auto"
-                             HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Text="Write a message..." 
-                             VerticalContentAlignment="Center" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" CaretBrush="White" Margin="2" TextWrapping="Wrap"/>
-
+                <TextBox Foreground="LightGray" Background="Transparent" VerticalScrollBarVisibility="Auto" x:Name="txtMessage"
+                             HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Text="Write a message..." TextWrapping="Wrap"
+                             VerticalContentAlignment="Center" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" CaretBrush="White" Margin="2" KeyDown="txtMessage_KeyDown"/>
                 <Button Template="{StaticResource chatInterfaceButton}" Grid.Column="2" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Margin="5">
                     <Image Source="Resources/smile.png"/>
                 </Button>
